@@ -67,18 +67,11 @@ GO
 ------------------- Start Verify TDE --------------------------------
 
 -- verify that data is accessible
-USE AdventureWorks2014
-SELECT *
-INTO Employees
-FROM Person.Person
-WHERE BusinessEntityID < 10;
-GO
+USE mkshghSampleDB
+-- if you have some data then run select query and check if the db data is accessible.
 
-SELECT *
-FROM Employees;
-GO
 
-------------------- Remove TDE with DB and Certificate --------------------------------
+------------------- Delete TDE with DB and Certificate --------------------------------
 
 -- backup the database using Object Explorer, then
 -- delete the database and clean the server instance
@@ -104,16 +97,4 @@ CREATE CERTIFICATE mTDECertificate
     WITH PRIVATE KEY(
             FILE = 'C:\SQLWork\mEncryptionCert.key',
             DECRYPTION BY PASSWORD = 'MyBackupPa$$3');
-GO
-
--- Trying restoration again using Object Explorer will now work
-
-------------------- Delete TDE using Certificate --------------------------------
-USE master;
-GO
-DROP DATABASE mkshghSampleDB;
-GO
-DROP CERTIFICATE mTDECertificate;
-GO
-DROP MASTER KEY;
 GO
