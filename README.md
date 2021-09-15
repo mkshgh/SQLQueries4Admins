@@ -104,3 +104,45 @@ Search for privilege of a given username in the given DB and delete the user fro
 Check this  to resolve these errors which can come in handy:
 - Error: 15138
 - Error: 15421
+
+## 7.ProfilerAccessToDB
+
+Check this  to resolve these errors which can come in handy:
+- exec sp_addrolemember 'db_owner', 'mkshgh';
+- GRANT ALTER TRACE TO mkshgh
+<code>
+
+-- delete the user from the given database
+-- change this name to the username you want to delete and the database you want to search the user
+
+\>  exec sp_addrolemember 'db_owner', 'mkshgh';\
+\>  GRANT ALTER TRACE TO mkshgh
+
+</code>
+
+
+## 8.TDE_TransparentDataEncryption.sql
+
+TDE does real-time I/O encryption and decryption of data and log files. The encryption uses a database encryption key (DEK). The database boot record stores the key for availability during recovery. The DEK is a symmetric key. It's secured by a certificate that the server's master database stores or by an asymmetric key that an EKM module protects.
+
+```
+-- You need service master key to decrypt this password if you forget it 'sa password'
+-- create a database master key (DMK)
+USE master;
+GO
+CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'mkshghPassw0rd';
+GO
+
+-- You will need the master key to decrypt this certificate used above.
+-- create certificate
+CREATE CERTIFICATE mTDECertificate
+    WITH SUBJECT = 'My Encryption Certificate';
+GO
+ .
+ .
+ .
+  
+```
+TDE protects data at rest, which is the data and log files. It lets you follow many laws, regulations, and guidelines established in various industries. This ability lets software developers encrypt data by using AES and 3DES encryption algorithms without changing existing applications.
+
+TDE doesn't provide encryption across communication channels; you should use encrypted connections in combination with TDE for that. We will learn more about that in the upcoming section.
