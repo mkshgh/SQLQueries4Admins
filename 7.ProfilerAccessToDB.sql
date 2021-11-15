@@ -7,7 +7,7 @@ GO
 # Check the permission is provided
 sp_helplogins mkshgh
 
-# REVOKE ALTER TRACE permission 
+# GRANT ALTER TRACE permission 
 USE master;
 GO
 GRANT ALTER TRACE TO mkshgh
